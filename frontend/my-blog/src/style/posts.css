@@ -1,0 +1,23 @@
+#main{
+    width: 95%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+   /* gap: 3%; */
+   row-gap: 20%;
+   column-gap: 2%;
+
+}
+
+  
+#every_post{
+    padding: 5%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+h3{
+    font-weight: bolder;
+}
+p{
+    margin-bottom: 2%;
+}

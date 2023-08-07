@@ -1,0 +1,18 @@
+#register{
+    width: 40%;
+    padding: 3%;
+    border-radius: 5px;
+    margin: auto;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+}
+form{
+font-size: 18px;
+}
+input{
+    padding: 1%;
+    border:1px solid black;
+    border-radius: 5px;
+    margin-top: 2%;
+
+}
