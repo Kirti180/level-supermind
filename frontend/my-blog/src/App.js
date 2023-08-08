@@ -4,7 +4,7 @@ import Register from "./components/UserRegister";
 import Login from "./components/UserLogin";
 import Home from "./components/Home";
 import Profile from "./components/UserProfile";
-import PostList from "./components/posts"
+import PostList from "./components/posts";
 function App() {
   return (
     <div>

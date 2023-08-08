@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHeart,
-  faComment,
-  faTag,
-  faPaperPlane,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
 import {
   Popover,
   PopoverTrigger,
@@ -20,8 +12,18 @@ import {
   InputRightElement,
   Button,
   useToast,
+  Text,
 } from "@chakra-ui/react";
+import {
+  faHeart,
+  faComment,
+  faTag,
+  faPaperPlane,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../style/comments.css";
+
 const Cardpost = (props) => {
   const [like, setLike] = useState(false);
   const [show, setShow] = useState(false);
@@ -124,19 +126,24 @@ const Cardpost = (props) => {
       });
     }
   };
+  // Other functions and useEffects remain the same
 
   return (
     <div key={props.post.post_id} id="every_post">
-      <h3>{props.post.title}</h3>
-      <p>{props.post.content}</p>
+      <Text fontSize="xl" fontWeight="bold" mb={2}>
+        {props.post.title}
+      </Text>
+      <Text fontSize="md" mb={4}>
+        {props.post.content}
+      </Text>
       <FontAwesomeIcon
         icon={faHeart}
         size="lg"
-        style={{ color: like ? "red" : "black", marginRight: "10px" }}
+        style={{ color: like ? "red" : "black", marginRight: "10px", cursor: "pointer" }}
         onClick={handleLikeClick}
       />
       <Popover>
-        <PopoverTrigger>
+      <PopoverTrigger>
           <FontAwesomeIcon
             icon={faComment}
             size="lg"
@@ -178,7 +185,11 @@ const Cardpost = (props) => {
           </PopoverBody>
         </PopoverContent>
       </Popover>
-      <FontAwesomeIcon icon={faTag} size="lg" />
+      <FontAwesomeIcon
+        icon={faTag}
+        size="lg"
+        style={{ marginLeft: "10px", cursor: "pointer" }}
+      />
     </div>
   );
 };

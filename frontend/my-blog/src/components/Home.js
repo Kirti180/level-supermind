@@ -1,10 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, ButtonGroup, Heading } from '@chakra-ui/react'
-import "../style/home.css"
+import { Button, Flex } from '@chakra-ui/react';
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate("/");
+  };
 
   const handleRegisterClick = () => {
     navigate("/register");
@@ -13,9 +16,7 @@ const Home = () => {
   const handleLoginClick = () => {
     navigate("/login");
   };
-  const handleHomeClick = () => {
-    navigate("/");
-  };
+
   const handleViewProfileClick = () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -26,14 +27,45 @@ const Home = () => {
     }
   };
 
+  const isLoggedIn = localStorage.getItem("token");
+
   return (
-    <div id="home">
-      <Heading as='h1' size='md'>Welcome to our Blogging Application!</Heading>
-      <Button colorScheme='teal' variant='solid' onClick={handleHomeClick}>Home</Button>
-     <Button colorScheme='teal' variant='solid' onClick={handleRegisterClick}>Register</Button>
-      <Button colorScheme='teal' variant='solid' onClick={handleLoginClick}>Login</Button>
-      <Button colorScheme='teal' variant='solid' onClick={handleViewProfileClick}>View Profile</Button>
-    </div>
+    <Flex
+      id="navbar"
+      align="center"
+      padding="1rem"
+      bg="gray.100" // Light shade background color
+      marginBottom="3rem"
+    >
+      <Button colorScheme='teal' variant='ghost' onClick={handleHomeClick} mr="1rem">
+        Logo
+      </Button>
+      <Button colorScheme='teal' variant='ghost' onClick={handleHomeClick} mr="1rem">
+        Contact
+      </Button>
+      <Button colorScheme='teal' variant='ghost' onClick={handleHomeClick} mr="1rem">
+        Home
+      </Button>
+      <Button colorScheme='teal' variant='ghost' onClick={handleRegisterClick} mr="1rem">
+        Register
+      </Button>
+      <Button colorScheme='teal' variant='ghost' onClick={handleLoginClick} mr="1rem">
+        Login
+      </Button>
+      {isLoggedIn ? (
+        <Button
+          colorScheme='teal'
+          variant='ghost'
+          onClick={handleViewProfileClick}
+          bg="teal"
+          color="white"
+          _hover={{ bg: "white", color: "teal" }}
+          ml="auto" // Pushes the button to the right
+        >
+          View Profile
+        </Button>
+      ) : null}
+    </Flex>
   );
 };
 

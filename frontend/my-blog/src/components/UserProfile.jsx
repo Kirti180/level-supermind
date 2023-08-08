@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../style/profile.css";
-import { useParams } from "react-router-dom";
 import {
+  Button,
+  Flex,
+  Heading,
+  Input,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -11,9 +13,10 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button,
 } from "@chakra-ui/react";
-import { Heading } from "@chakra-ui/react";
+import "../style/profile.css";
+import { useParams } from "react-router-dom";
+
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
@@ -26,10 +29,12 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [hide, setHide] = useState(true);
+
   useEffect(() => {
     fetchUserData();
     fetchUserPosts();
   }, [user_id]);
+
   const fetchUserData = async () => {
     try {
       let user_id = localStorage.getItem("userid");
@@ -40,7 +45,6 @@ const Profile = () => {
       setUser(userData);
     } catch (error) {
       console.error(error);
-      // Handle error state here if needed
     }
   };
 
@@ -54,9 +58,9 @@ const Profile = () => {
       setUserPosts(postsByUser);
     } catch (error) {
       console.error(error);
-      // Handle error state here if needed
     }
   };
+
   const handleDeletePost = async (post_id) => {
     try {
       await axios.delete(`http://localhost:3001/posts/${post_id}`);
@@ -65,6 +69,7 @@ const Profile = () => {
       console.error(error);
     }
   };
+
   const handleSubmit = async () => {
     try {
       let userid = localStorage.getItem("userid");
@@ -74,11 +79,9 @@ const Profile = () => {
         user_id: userid,
       });
       fetchUserPosts();
-      console.log(response.data);
       closeModal();
     } catch (error) {
       console.error(error);
-      // Handle error if needed
     }
   };
 
@@ -88,7 +91,7 @@ const Profile = () => {
 
   return (
     <div>
-      <div id="user_detail">
+      <Flex id="user_detail" justify="space-between" align="center">
         <div>
           <Heading as="h1" size="md">
             Name: {user.username}
@@ -102,65 +105,56 @@ const Profile = () => {
             Create New Post
           </Button>
         </div>
-      </div>
+      </Flex>
       <div id="post">
-        {hide ? (
+        {hide && (
           <>
-            {userPosts.map((post) => {
-              return (
-                <div key={post.post_id} id="ech_pst">
-                  <Heading as="h1" size="sm">
-                    {post.title}
-                  </Heading>
-                  <Heading as="h1" size="sm">
-                    {post.content}
-                  </Heading>
-                  <Button
-                    colorScheme="red"
-                    variant="solid"
-                    onClick={() => {
-                      handleDeletePost(post.post_id);
-                    }}
-                  >
-                    Delete Post
-                  </Button>
-                </div>
-              );
-            })}
+            {userPosts.map((post) => (
+              <div key={post.post_id} id="ech_pst">
+                <Heading as="h1" size="sm">
+                  {post.title}
+                </Heading>
+                <p>{post.content}</p>
+                <Button
+                  colorScheme="red"
+                  variant="solid"
+                  onClick={() => {
+                    handleDeletePost(post.post_id);
+                  }}
+                >
+                  Delete Post
+                </Button>
+              </div>
+            ))}
           </>
-        ) : null}
-        <Button
-          onClick={() => {
-            setHide(!hide);
-          }}
-        >
-          hide
+        )}
+        <Button onClick={() => setHide(!hide)}>
+          {hide ? "Show" : "Hide"} Posts
         </Button>
       </div>
       <Modal isOpen={isOpen} onClose={closeModal}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Create New Post</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <input
-              type="text"
+            <Input
               placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <input
+            <Input
               placeholder="Content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
+              mt={4}
             />
           </ModalBody>
-
           <ModalFooter>
             <Button colorScheme="teal" mr={3} onClick={handleSubmit}>
               Create Post
             </Button>
-            <Button colorScheme="red" variant="solid" onClick={closeModal}>
+            <Button colorScheme="gray" variant="solid" onClick={closeModal}>
               Cancel
             </Button>
           </ModalFooter>
