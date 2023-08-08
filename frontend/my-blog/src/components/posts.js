@@ -16,24 +16,13 @@ const PostList = () => {
       const response = await axios.get("http://localhost:3001/posts");
       const allPosts = response.data.posts.map((post) => ({
         ...post,
-        isHeartRed: false, // Initialize the isHeartRed property to false for each post
+        isHeartRed: false,
       }));
       setPosts(allPosts);
     } catch (error) {
       console.error(error);
-      // Handle error state here if needed
     }
   };
-
-  // const handleHeartClick = (postId) => {
-  //   setPosts((prevPosts) =>
-  //     prevPosts.map((post) =>
-  //       post.post_id === postId
-  //         ? { ...post, isHeartRed: !post.isHeartRed }
-  //         : post
-  //     )
-  //   );
-  // };
 
   return (
     <div id="main">

@@ -1,12 +1,17 @@
 const express = require("express");
 const { Sequelize, DataTypes } = require("sequelize");
 const cors = require("cors");
-require('dotenv').config();
+require("dotenv").config();
 
-const seq = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-  host: process.env.DB_HOST,
-  dialect: process.env.DB_DIALECT,
-});
+const seq = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
+  }
+);
 // user schema
 const users = seq.define("users", {
   user_id: {
@@ -243,9 +248,9 @@ app.get("/users/:user_id", async (req, res) => {
 // Endpoint to fetch all posts
 app.get("/posts", async (req, res) => {
   try {
-    const allPosts = await posts.findAll(); // Use a different variable name here
+    const allPosts = await posts.findAll();
 
-    res.status(200).json({ posts: allPosts }); // Adjust the response object accordingly
+    res.status(200).json({ posts: allPosts });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch posts." });

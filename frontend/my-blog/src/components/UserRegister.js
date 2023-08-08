@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import "../style/register.css"
-import {
-  Button,Heading
-} from '@chakra-ui/react'
+import "../style/register.css";
+import { Button, Heading } from "@chakra-ui/react";
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -21,14 +19,13 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:3001/register",
         formData
       );
-      console.log(response.data); // You can handle the response as needed
+      console.log(response.data);
       if (response.status === 201) {
         window.alert("Register successful!");
         // Registration successful
@@ -39,19 +36,20 @@ const Register = () => {
         console.log("Failed to register user.");
       }
     } catch (error) {
-      console.error(error); // Log the full error object for debugging purposes
-      console.error(error.response?.data?.error); // Display registration error message if available
+      console.error(error);
+      console.error(error.response?.data?.error);
     }
   };
 
   return (
     <div id="register">
-      <Heading as='h1' size='lg'>Register</Heading>
+      <Heading as="h1" size="lg">
+        Register
+      </Heading>
       <form onSubmit={handleSubmit}>
         <div>
-        
           <input
-          placeholder="Enter Username"
+            placeholder="Enter Username"
             type="text"
             name="username"
             value={formData.username}
@@ -60,9 +58,8 @@ const Register = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder="Enter Email"
+            placeholder="Enter Email"
             type="email"
             name="email"
             value={formData.email}
@@ -71,9 +68,8 @@ const Register = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder="Enter password"
+            placeholder="Enter password"
             type="password"
             name="password"
             value={formData.password}
@@ -81,7 +77,9 @@ const Register = () => {
             required
           />
         </div>
-        <Button colorScheme='teal' variant='solid' type="submit">Register</Button>
+        <Button colorScheme="teal" variant="solid" type="submit">
+          Register
+        </Button>
       </form>
     </div>
   );

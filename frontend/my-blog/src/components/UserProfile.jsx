@@ -23,7 +23,6 @@ const Profile = () => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   const { onOpen, onClose } = useDisclosure();
-  // const { user_id } = useParams();
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [hide, setHide] = useState(true);
@@ -62,10 +61,8 @@ const Profile = () => {
     try {
       await axios.delete(`http://localhost:3001/posts/${post_id}`);
       fetchUserPosts();
-      // Update the userPosts state after deleting the post
     } catch (error) {
       console.error(error);
-      // Handle error state here if needed
     }
   };
   const handleSubmit = async () => {
@@ -77,7 +74,7 @@ const Profile = () => {
         user_id: userid,
       });
       fetchUserPosts();
-      console.log(response.data); // You can handle the response data here if needed
+      console.log(response.data);
       closeModal();
     } catch (error) {
       console.error(error);
@@ -146,7 +143,6 @@ const Profile = () => {
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* Add form fields for post data */}
             <input
               type="text"
               placeholder="Title"
