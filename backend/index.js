@@ -13,7 +13,7 @@ app.use("/", postRouter);
 app.use("/", commenttRouter);
 
 seq.sync().then(() => {
-  app.listen(3001, () => {
+  app.listen(3006, () => {
     console.log("Server Started");
   });
 });
